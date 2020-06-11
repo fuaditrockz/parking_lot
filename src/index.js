@@ -25,6 +25,12 @@ const readFileLineByLine = () => {
       const total = line.match(/\d+/)
       console.log(`Created parking lot with ${total} slots`)
     }
+    if (conditionType(line, TYPE_CONSTANTS.PARK)) {
+      const carNumber = line.replace(TYPE_CONSTANTS.PARK, '')
+      parkedCar.push(carNumber)
+      const carIndexPosition = parkedCar.findIndex(value => value === carNumber)
+      console.log(`Allocated slot number: ${carIndexPosition + 1}`)
+    }
     
   })
 }
