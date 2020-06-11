@@ -26,16 +26,21 @@ const readFileLineByLine = () => {
       console.log(`Created parking lot with ${total} slots`)
     }
     if (conditionType(line, TYPE_CONSTANTS.PARK)) {
-      const carNumber = line.replace(TYPE_CONSTANTS.PARK, '')
+      const carNumber = line.replace(TYPE_CONSTANTS.PARK + ' ', '')
       parkedCar.push(carNumber)
       const carIndexPosition = parkedCar.findIndex(value => value === carNumber)
       console.log(`Allocated slot number: ${carIndexPosition + 1}`)
     }
     if (conditionType(line, TYPE_CONSTANTS.LEAVE)) {
-      const carNumber = line.replace(TYPE_CONSTANTS.LEAVE, '')
-      carIndexPosition = parkedCar.findIndex(value => value === carNumber)
+      const carNumber = () => {
+        const removedTypeCommand = line.replace(TYPE_CONSTANTS.LEAVE + ' ', '')
+        return removedTypeCommand.slice(0, -2)
+      }
+      const parkedHours = line.substr(line.length - 1)
+      const totalCharge = (parkedHours - 2) * 10 + 10
+      carIndexPosition = parkedCar.findIndex(value => value === carNumber())
       parkedCar.splice(carIndexPosition, 1)
-      console.log('Registration number KA-01-HH-3141 with Slot Number 6 is free with Charge 30')
+      console.log(`Registration number ${carNumber()} with Slot Number ${carIndexPosition} is free with Charge ${totalCharge}`)
     }
   })
 }
