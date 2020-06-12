@@ -33,10 +33,10 @@ const parkingLotProjectOutput = () => {
         totalParkingLots = totalParkingLots - 1
         const carIndexPosition = parkedCar.findIndex(value => value === carNumber)
         console.log(`Allocated slot number: ${carIndexPosition + 1}`)
+        console.log(totalParkingLots)
       }
     }
     if (conditionType(data, TYPE_CONSTANTS.LEAVE)) {
-      totalParkingLots = totalParkingLots + 1
       const carNumber = () => {
         const removedTypeCommand = data.replace(TYPE_CONSTANTS.LEAVE + ' ', '')
         return removedTypeCommand.slice(0, -2)
@@ -47,14 +47,12 @@ const parkingLotProjectOutput = () => {
         carIndexPosition = 'not found'
         totalCharge = ''
       } else {
+        totalParkingLots = totalParkingLots + 1
         const parkedHours = data.substr(data.length - 1)
         totalCharge = `is free with Charge $${(parkedHours - 2) * 10 + 10}`
         parkedCar[carIndexPosition] = null
       }
       console.log(`Registration number ${carNumber()} with Slot Number ${carIndexPosition} ${totalCharge}`)
-    }
-    if (conditionType(data, TYPE_CONSTANTS.STATUS)) {
-      console.log(parkedCar)
     }
   })
 }
