@@ -41,11 +41,20 @@ const parkingLotProjectOutput = () => {
         const removedTypeCommand = data.replace(TYPE_CONSTANTS.LEAVE + ' ', '')
         return removedTypeCommand.slice(0, -2)
       }
-      carIndexPosition = parkedCar.findIndex(value => value === carNumber())
-      const parkedHours = data.substr(data.length - 1)
-      const totalCharge = (parkedHours - 2) * 10 + 10
-      parkedCar[carIndexPosition] = null
-      console.log(`Registration number ${carNumber()} with Slot Number ${carIndexPosition + 1} is free with Charge $${totalCharge}`)
+      let carIndexPosition = parkedCar.findIndex(value => value === carNumber())
+      let totalCharge
+      if (carIndexPosition < 0) {
+        carIndexPosition = 'not found'
+        totalCharge = ''
+      } else {
+        const parkedHours = data.substr(data.length - 1)
+        totalCharge = `is free with Charge $${(parkedHours - 2) * 10 + 10}`
+        parkedCar[carIndexPosition] = null
+      }
+      console.log(`Registration number ${carNumber()} with Slot Number ${carIndexPosition} ${totalCharge}`)
+    }
+    if (conditionType(data, TYPE_CONSTANTS.STATUS)) {
+      console.log(parkedCar)
     }
   })
 }
