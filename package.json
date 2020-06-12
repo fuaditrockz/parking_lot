@@ -9,5 +9,7 @@
   },
   "author": "Fuadit Muhammad",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "cli-table": "^0.3.1"
+  }
 }
