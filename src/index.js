@@ -1,5 +1,4 @@
-const fs = require('fs')
-const readline = require('readline')
+const fs  = require('fs')
 const fileInput = 'file_input.txt'
 
 const TYPE_CONSTANTS = {
@@ -29,10 +28,11 @@ const parkingLotProjectOutput = () => {
         console.log('Sorry, parking lot is full')
       } else {
         const carNumber = data.replace(TYPE_CONSTANTS.PARK + ' ', '')
-        parkedCar.push(carNumber)
+        const emptyLot = parkedCar.indexOf(null)
+        emptyLot > -1 ? parkedCar[emptyLot] = carNumber : parkedCar.push(carNumber)
         totalParkingLots = totalParkingLots - 1
         const carIndexPosition = parkedCar.findIndex(value => value === carNumber)
-        console.log(`Allocated slot number: ${carIndexPosition + 1} -> total lots: ${totalParkingLots}`)
+        console.log(`Allocated slot number: ${carIndexPosition + 1}`)
       }
     }
     if (conditionType(data, TYPE_CONSTANTS.LEAVE)) {
@@ -44,12 +44,10 @@ const parkingLotProjectOutput = () => {
       carIndexPosition = parkedCar.findIndex(value => value === carNumber())
       const parkedHours = data.substr(data.length - 1)
       const totalCharge = (parkedHours - 2) * 10 + 10
-      parkedCar.splice(carIndexPosition, 1)
+      parkedCar[carIndexPosition] = null
       console.log(`Registration number ${carNumber()} with Slot Number ${carIndexPosition + 1} is free with Charge $${totalCharge}`)
     }
   })
-  console.log(totalParkingLots)
-  console.log(convertFileIntoArray)
 }
 
 const parkingLot = async () => {
