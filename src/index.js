@@ -13,48 +13,47 @@ const conditionType = (word, type) => {
   return word.includes(type)
 }
 
-const parkedCar = []
+let parkedCar = []
 let totalParkingLots
 
-const readFileLineByLine = () => {
-  const fileReadInterface = readline.createInterface({
-    input: fs.createReadStream(fileInput)
-  })
-
-  return fileReadInterface.on('line', line => {
-    if (conditionType(line, 'create_parking_lot')) {
-      const total = line.match(/\d+/)
-      totalParkingLots = parseInt(total)
+const parkingLotProjectOutput = () => {
+  const convertFileIntoArray = fs.readFileSync(fileInput).toString().split("\n");
+  convertFileIntoArray.map(data => {
+    if (conditionType(data, TYPE_CONSTANTS.CREATE_LOT)) {
+      const total = parseInt(data.match(/\d+/))
+      totalParkingLots = total
       console.log(`Created parking lot with ${total} slots`)
     }
-    if (conditionType(line, TYPE_CONSTANTS.PARK)) {
-      const carNumber = line.replace(TYPE_CONSTANTS.PARK + ' ', '')
+    if (conditionType(data, TYPE_CONSTANTS.PARK) && !conditionType(data, TYPE_CONSTANTS.CREATE_LOT)) {
       if (totalParkingLots < 1) {
         console.log('Sorry, parking lot is full')
       } else {
+        const carNumber = data.replace(TYPE_CONSTANTS.PARK + ' ', '')
         parkedCar.push(carNumber)
         totalParkingLots = totalParkingLots - 1
         const carIndexPosition = parkedCar.findIndex(value => value === carNumber)
-        console.log(`Allocated slot number: ${carIndexPosition + 1}`)
+        console.log(`Allocated slot number: ${carIndexPosition + 1} -> total lots: ${totalParkingLots}`)
       }
     }
-    if (conditionType(line, TYPE_CONSTANTS.LEAVE)) {
+    if (conditionType(data, TYPE_CONSTANTS.LEAVE)) {
+      totalParkingLots = totalParkingLots + 1
       const carNumber = () => {
-        const removedTypeCommand = line.replace(TYPE_CONSTANTS.LEAVE + ' ', '')
+        const removedTypeCommand = data.replace(TYPE_CONSTANTS.LEAVE + ' ', '')
         return removedTypeCommand.slice(0, -2)
       }
-      const parkedHours = line.substr(line.length - 1)
-      const totalCharge = (parkedHours - 2) * 10 + 10
       carIndexPosition = parkedCar.findIndex(value => value === carNumber())
+      const parkedHours = data.substr(data.length - 1)
+      const totalCharge = (parkedHours - 2) * 10 + 10
       parkedCar.splice(carIndexPosition, 1)
-      totalParkingLots = totalParkingLots + 1
-      console.log(`Registration number ${carNumber()} with Slot Number ${carIndexPosition} is free with Charge ${totalCharge}`)
+      console.log(`Registration number ${carNumber()} with Slot Number ${carIndexPosition + 1} is free with Charge $${totalCharge}`)
     }
   })
+  console.log(totalParkingLots)
+  console.log(convertFileIntoArray)
 }
 
-const parkingLot = () => {
-  readFileLineByLine()
+const parkingLot = async () => {
+  parkingLotProjectOutput()
 }
 
 module.exports = parkingLot
