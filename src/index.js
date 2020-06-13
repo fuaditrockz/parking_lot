@@ -30,19 +30,25 @@ const createLot = data => {
 
 // PARKING CAR
 const parking = data => {
+  let parkingStatus
+
+  const carNumber = data.replace(TYPE_CONSTANTS.PARK + ' ', '')
   const emptyLot = parkedCar.indexOf(null)
   const isUnavailableLot = emptyLot > -1
+
   if (totalParkingLots < 1) {
-    console.log('Sorry, parking lot is full')
+    parkingStatus = 'Sorry, parking lot is full'
   } else {
-    const carNumber = data.replace(TYPE_CONSTANTS.PARK + ' ', '')
-    
     isUnavailableLot ? parkedCar[emptyLot] = carNumber : parkedCar.push(carNumber)
-    totalParkingLots = totalParkingLots - 1
     const carIndexPosition = parkedCar.findIndex(value => value === carNumber)
-    console.log(`Allocated slot number: ${carIndexPosition + 1}`)
-    isUnavailableLot ? table[emptyLot, emptyLot] = [carIndexPosition + 1, carNumber] : table.push([carIndexPosition + 1, carNumber])
+    const actualCarIndexPosition = carIndexPosition + 1
+
+    totalParkingLots = totalParkingLots - 1
+    isUnavailableLot ? table[emptyLot, emptyLot] = [actualCarIndexPosition, carNumber] : table.push([actualCarIndexPosition, carNumber])
+    parkingStatus = `Allocated slot number: ${actualCarIndexPosition}`
   }
+
+  console.log(parkingStatus)
 }
 
 // LEAVING CAR
