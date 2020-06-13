@@ -17,7 +17,7 @@ Just choose some folder on your terminal/shell to put this project. And then run
 
 #### 2. Running Locally
 
-a. Choose the `parking_lot` folder:
+a. Choose the `parking_lot` project folder:
 ```
 > cd parking_lot
 ```
@@ -48,4 +48,4 @@ No. | Package | Version | Description
 ### Credits
 
 * Fuadit Muhammad - author <[muhammadfuaditrockz@gmail.com](muhammadfuaditrockz@gmail.com)>
-* DKatalis Lab - Code Challenger
+* [DKatalis Lab](https://dkatalis.co/) - code challenger
