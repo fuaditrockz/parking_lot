@@ -63,8 +63,8 @@ const leaving = data => {
     const parkedHours = data.substr(data.length - 1)
     totalCharge = `is free with Charge $${(parkedHours - 2) * 10 + 10}`
     parkedCar[carIndexPosition] = null
-    table[carIndexPosition + 1, carNumber()] = [null, null]
     carIndexPosition = carIndexPosition + 1
+    table[carIndexPosition - 1] = [null, null]
   }
 
   console.log(`Registration number ${carNumber()} with Slot Number ${carIndexPosition} ${totalCharge}`)
