@@ -44,3 +44,8 @@ No. | Package | Version | Description
 ----|---------|---------|------------
 1 | [nodemon](https://www.npmjs.com/package/nodemon) | 1.19.1 | nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
 2 | [cli-table3](https://www.npmjs.com/package/cli-table) | 0.6.0 | This utility allows you to render unicode-aided tables on the command line from your node.js scripts.
+
+### Credits
+
+* Fuadit Muhammad - author <[muhammadfuaditrockz@gmail.com](muhammadfuaditrockz@gmail.com)>
+* DKatalis Lab - Code Challenger
