@@ -35,5 +35,5 @@ c. Running the application.
 #### 3. Output
 
 <div align="center">
-    <img src="https://res.cloudinary.com/telecreativenow/image/upload/v1592031302/output.png" alt="Logo" width="100%">
+    <img src="https://res.cloudinary.com/telecreativenow/image/upload/v1592031302/output.png" alt="output" width="50%">
 </div>
