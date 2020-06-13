@@ -53,6 +53,8 @@ const parking = data => {
 
 // LEAVING CAR
 const leaving = data => {
+  let leavingStatus
+
   const carNumber = () => {
     const removedTypeCommand = data.replace(TYPE_CONSTANTS.LEAVE + ' ', '')
     return removedTypeCommand.slice(0, -2)
@@ -62,18 +64,19 @@ const leaving = data => {
   let totalCharge
 
   if (carIndexPosition < 0) {
-    carIndexPosition = 'not found'
-    totalCharge = ''
+    leavingStatus = `Registration number ${carNumber()} with Slot Number not found`
   } else {
-    totalParkingLots = totalParkingLots + 1
     const parkedHours = data.substr(data.length - 1)
-    totalCharge = `is free with Charge $${(parkedHours - 2) * 10 + 10}`
+    totalCharge = (parkedHours - 2) * 10 + 10
     parkedCar[carIndexPosition] = null
     carIndexPosition = carIndexPosition + 1
+
     table[carIndexPosition - 1] = [null, null]
+    totalParkingLots = totalParkingLots + 1
+    leavingStatus = `Registration number ${carNumber()} with Slot Number ${carIndexPosition} is free with Charge $${totalCharge}`
   }
 
-  console.log(`Registration number ${carNumber()} with Slot Number ${carIndexPosition} ${totalCharge}`)
+  console.log(leavingStatus)
 }
 
 // PRINT STATUS
